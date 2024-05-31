@@ -2,32 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(12, 21, 32);
+  color: white;
+}
+#createExerciseForm input {
+  background-color: rgba(0, 0, 0, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.9);
+}
+#createExerciseForm select {
+  background: rgba(0, 0, 0, 0);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  text-align: center;
+}
+/* Hide the number input arrows */
+input[type='number'] {
+  width: 40px;
+  text-align: center;
+  outline: none;
+  /* Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+
+  /* Firefox */
+  appearance: textfield;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* Chrome, Safari, Edge, Opera */
+  -webkit-appearance: none;
+}
+
+input::-moz-range-progress {
+  /* Firefox */
+  background: none;
+}
+
+input::-moz-range-thumb {
+  /* Firefox */
+  background: none;
+}
+.editForm input,
+select {
+  background-color: rgba(0, 0, 0, 0);
+}
+select {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+select:focus {
+  color: rgba(32, 32, 32, 1);
+}
+
+.editInput {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
 }

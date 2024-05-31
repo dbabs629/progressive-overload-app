@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Second Commit
+
+Added login route, user authentication with email and password, signin, signout & create account.
+Added context component that passes the current authenticated user to components that consume it & listens for auth changes.
+Added a Firestore Object with methods that use Firebase services to carry out CRUD operations.
+Added Exercise route which displays a list of exercises that match the user in Firebase db.
+Added Exercise list which displays the exercises of the current user, passes the input values to the updateExercise method after the user submits changes.
+Added CreateExerciseForm to get user input, call the writeDoc method to create the new doc in the database.

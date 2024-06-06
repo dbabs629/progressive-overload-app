@@ -4,16 +4,19 @@ import UserContext from '@/app/context/UserAuthContext'
 import AddExercise from '@/app/lib/utils/AddExercise'
 
 export default function CreateExerciseForm() {
-  const { user } = useContext(UserContext)
+  let { user, authExercises, setAuthExercises } = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    AddExercise(e.target, user)
+    let exerciseOrderNumber = !authExercises || authExercises === 0 ? 1 : authExercises.length + 1
+    console.log(exerciseOrderNumber)
+    AddExercise(e.target, user, setAuthExercises, exerciseOrderNumber)
     document.getElementById('createExerciseForm').reset()
   }
 
   return (
-    <form id='createExerciseForm' onSubmit={handleSubmit}>
+    <form id='createExerciseForm' onSubmit={handleSubmit} className='border-4 p-4'>
+      <h2>Create Exercise Form</h2>
       <ul className='flex space-x-8'>
         <li>
           <input type='text' placeholder='Exercise name' required />

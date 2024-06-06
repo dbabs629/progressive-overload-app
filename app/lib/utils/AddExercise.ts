@@ -1,13 +1,15 @@
 import { Firestore } from '@/app/lib/services/Firestore'
+import { useState, useContext } from 'react'
+import UserContext from '@/app/context/UserAuthContext'
 
-export default async function AddExercise(e, user) {
+export default async function AddExercise(e, user, setAuthExercises, exerciseOrderNumber) {
   let exercise = await [...e].map((input) => input.value)
   let date = new Date().toISOString().slice(0, 10)
   let newExercise = {
     name: exercise[0].trim().toUpperCase(),
     muscle: exercise[1],
     category: exercise[2],
-    start_date: '2024-05-15',
+    start_date: date,
     start_weight: exercise[3],
     start_days: 0,
     start_logs: 0,
@@ -23,6 +25,12 @@ export default async function AddExercise(e, user) {
     current_weight_difference: 0,
     sets: 3,
     reps: 10,
+    order_number: exerciseOrderNumber,
   }
-  Firestore.writeExercise(user, newExercise)
+  Firestore.writeExercise(user, newExercise).then((user) => {
+    console.log('read')
+    Firestore.readExercises(user).then((exercises) => {
+      setAuthExercises(exercises)
+    })
+  })
 }

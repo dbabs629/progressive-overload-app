@@ -1,4 +1,14 @@
-import { setDoc, doc, serverTimestamp, getDocs, collection, addDoc, getDoc, updateDoc } from 'firebase/firestore'
+import {
+  setDoc,
+  doc,
+  serverTimestamp,
+  getDocs,
+  collection,
+  addDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 import { db } from '@/app/lib/firebaseConfig'
 import { auth } from '@/app/lib/firebaseConfig'
 
@@ -29,28 +39,47 @@ export const Firestore = {
   },
 
   writeExercise: (user, newExercise) => {
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const userDoc = doc(db, user.uid, 'user_data')
-        const exercisesCollectionRef = collection(userDoc, 'exercises')
+        const userDoc = await doc(db, user.uid, 'user_data')
+        const exercisesCollectionRef = await collection(userDoc, 'exercises')
         const newExerciseDoc = await addDoc(exercisesCollectionRef, newExercise)
         await setDoc(newExerciseDoc, { ...newExercise, id: newExerciseDoc.id })
+        resolve(user)
         console.log('New exercise added with ID: ', newExerciseDoc.id)
       } catch (e) {
         console.log(e)
+        reject(e)
       }
     })
   },
 
   updateExercise: (user, updatedExercise) => {
-    return new Promise(async (resolve) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const userDoc = doc(db, user.uid, 'user_data')
-        const exerciseDocRef = doc(userDoc, 'exercises', updatedExercise.id)
+        const userDoc = await doc(db, user.uid, 'user_data')
+        const exerciseDocRef = await doc(userDoc, 'exercises', updatedExercise.id)
         await updateDoc(exerciseDocRef, { id: updatedExercise.id, ...updatedExercise })
-        console.log('New exercise added with ID: ', updatedExercise.id)
+        console.log('Updated Exercise with ID: ', updatedExercise.id)
+        resolve(user)
       } catch (e) {
         console.log(e)
+        reject(e)
+      }
+    })
+  },
+
+  deleteExercise: (user, exercise) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const userDoc = await doc(db, user.uid, 'user_data')
+        const exerciseDocRef = await doc(userDoc, 'exercises', exercise.id)
+        await deleteDoc(exerciseDocRef)
+        console.log('Deleted Exercise with ID: ', exercise.id)
+        resolve(user)
+      } catch (e) {
+        console.log(e)
+        reject(e)
       }
     })
   },

@@ -1,12 +1,5 @@
 import { getFirestore } from 'firebase/firestore'
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  connectAuthEmulator,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-} from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { initializeApp, getApps, getApp } from 'firebase/app'
 
 const firebaseConfig = {
@@ -33,19 +26,6 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 // const provider = new GoogleAuthProvider()
 
 const auth = getAuth(app)
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/auth.user
-    const uid = user.uid
-
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-})
 
 // Connect to emulator
 // connectAuthEmulator(auth, 'http://localhost:9099')
